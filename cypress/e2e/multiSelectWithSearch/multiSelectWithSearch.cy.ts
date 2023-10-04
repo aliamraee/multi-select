@@ -6,6 +6,7 @@ describe("Select Component Test", () => {
   const selector = ".rasha-select-4"
 
   it("should search in the component and select some of the filtered options", () => {
+    cy.openDropdown(selector)
     cy.search(selector, "20")
 
     cy.selectMultyOptions(selector, ['Option 20', 'Option 202', 'Option 203', 'Option 204']);

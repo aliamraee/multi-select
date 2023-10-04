@@ -17,7 +17,7 @@ Cypress.Commands.add("getSelectedOptionCount", (selector: string, count: number)
 });
 
 Cypress.Commands.add("closeDropdown", () => {
-  cy.get("#root").click()
+  cy.get("#root").click({ force: true })
   cy.get(".rasha-dropdown").should('not.exist');
 })
 

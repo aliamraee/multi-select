@@ -135,7 +135,7 @@ const App = () => {
         <p>This is a general demo of the component</p>
         <div>
           <Select
-            selectClass="rasha-select-1"
+            selectClass="rasha-select-main"
             onChange={(val: string | string[]) =>
               setStorageData("selectData", val)
             }
