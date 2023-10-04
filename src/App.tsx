@@ -9,6 +9,10 @@ const RootContainer = styled.div`
   display: flex;
   flex-flow: column;
   margin: auto;
+
+  .sample-component {
+    margin-bottom: 60px;
+  }
 `;
 const Box = styled.div`
   display: flex;
