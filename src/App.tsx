@@ -1,0 +1,286 @@
+
+import Select from "components/Select";
+import { useState } from "react";
+import styled from "styled-components";
+import {
+  getLocalStorageData,
+  setLocalStorageData,
+} from "./helpers/localStorage";
+import data from "./data/data.json";
+
+const RootContainer = styled.div`
+  max-width: 1000px;
+  display: flex;
+  flex-flow: column;
+  .sample-component {
+    border-radius: 20px;
+    box-shadow: 0px 0px 12px #c4c2c2;
+    margin: 12px;
+  }
+`;
+const Box = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+`;
+
+const Card = styled.div`
+  border-radius: 12px;
+  margin: 12px;
+  padding: 20px;
+  background: white;
+  width: calc(50% - 64px);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const Title = styled.h3`
+  font-size: 20px;
+  margin: 0px;
+  color: #545854;
+  border-bottom: 1px solid white;
+  padding-bottom: 8px;
+`;
+
+const PageTitle = styled.div`
+  background: #262928ad;
+  margin: 18px 12px;
+  border-radius: 12px;
+  text-align: center;
+  color: #e8e8e8;
+  padding: 10px;
+`;
+
+const Description = styled.p`
+  font-size: 16px;
+  color: #626060;
+`;
+
+interface DataType {
+  label: string;
+  value: string;
+}
+
+const App = () => {
+  const [optionsData] = useState<DataType[]>(data);
+
+  // const fetchData = useCallback(async () => {
+  //   try {
+  //     const { data }: { data: DataType[] } =
+  //       await axios.get("src/data/data.json");
+  //     setOptionsData(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  return (
+    <RootContainer>
+      <PageTitle>
+        <h1>Select Components</h1>
+        <p>This is a general demo of the component</p>
+        <div style={{ margin: 20 }}>
+          <Select
+            selectClass="rasha-select-1"
+            onChange={(val: string | string[]) =>
+              setLocalStorageData("selectData", val)
+            }
+            onSearch={(val: string) => console.log(val)}
+            options={optionsData}
+            defaultValue={getLocalStorageData("selectData", [])}
+            showSearch
+            multiple
+            placeholder="select an option"
+          />
+        </div>
+      </PageTitle>
+
+      <div className="sample-component">
+        <PageTitle>
+          <h3>there is more sample of this components</h3>
+        </PageTitle>
+
+        <Box>
+          <Card>
+            <Title>Single-Select</Title>
+            <Description>
+              In this case, you can select only one item from the list
+            </Description>
+            <Select
+              selectClass="rasha-select-1"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+            />
+          </Card>
+
+          <Card>
+            <Title>Multi-Select</Title>
+            <Description>
+              In this case, you can choose several options from the list
+            </Description>
+            <Select
+              selectClass="rasha-select-2"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              multiple={true}
+            />
+          </Card>
+        </Box>
+        <Box>
+          <Card>
+            <Title>Single-Select showSearch</Title>
+            <Description>
+              When the drop-down box opens, you can search and filter the list
+              and select an option
+            </Description>
+            <Select
+              selectClass="rasha-select-3"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select or search an option"
+              showSearch
+            />
+          </Card>
+
+          <Card>
+            <Title>Multi-Select showSearch</Title>
+            <Description>
+              When the dropdown opens, you can search and filter the list and
+              select several options
+            </Description>
+            <Select
+              selectClass="rasha-select-4"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select or search an option"
+              multiple
+              showSearch
+            />
+          </Card>
+        </Box>
+        <Box>
+          <Card>
+            <Title>Single-Select defaultValue</Title>
+            <Description>
+              In this case, you can set a selected default value for the
+              component
+            </Description>
+            <Select
+              selectClass="rasha-select-5"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              defaultValue={"option_2"}
+              showSearch
+            />
+          </Card>
+
+          <Card>
+            <Title>Multi-Select defaultValue</Title>
+            <Description>
+              In this case, you can set a selected default value for the
+              component
+            </Description>
+            <Select
+              selectClass="rasha-select-6"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              multiple={true}
+              defaultValue={["option_1", "option_2"]}
+              showSearch
+            />
+          </Card>
+        </Box>
+        <Box>
+          <Card>
+            <Title>Single-Select disabled</Title>
+            <Description>
+              In this case, the select box is disabled and it is not possible to
+              open the drop down and select option
+            </Description>
+            <Select
+              selectClass="rasha-select-7"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              disabled
+            />
+          </Card>
+
+          <Card>
+            <Title>Multi-Select disabled</Title>
+            <Description>
+              In this case, the select box is disabled and it is not possible to
+              open the drop down and select option
+            </Description>
+            <Select
+              selectClass="rasha-select-8"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              multiple={true}
+              disabled
+            />
+          </Card>
+        </Box>
+        <Box>
+          <Card>
+            <Title>Single-Select disableOption</Title>
+            <Description>
+              In this case, you can disable the options you want so that it is
+              not possible to select them
+            </Description>
+            <Select
+              selectClass="rasha-select-9"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              showSearch
+              disableOption={(data: DataType) => data.value == "option_2"}
+            />
+          </Card>
+
+          <Card>
+            <Title>Multi-Select disableOption</Title>
+            <Description>
+              In this case, you can disable the options you want so that it is
+              not possible to select them
+            </Description>
+            <Select
+              selectClass="rasha-select-10"
+              onChange={(val: string | string[]) => console.log("value: ", val)}
+              onSearch={(val: string) => console.log(val)}
+              options={optionsData}
+              placeholder="select an option"
+              multiple={true}
+              showSearch
+              disableOption={(data: DataType) =>
+                data.value == "option_2" || data.value == "option_3"
+              }
+            />
+          </Card>
+        </Box>
+      </div>
+    </RootContainer>
+  );
+};
+
+export default App;
