@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import Option from "components/Option";
-import Tag from "components/Tag";
+import Checkbox from "components/Checkbox";
 
 export default {
   component: Option,
@@ -12,7 +12,7 @@ export const Default = {
   args: {
     disabled: false,
     onMouseDown: action("onMouseDown"),
-    children: <Tag label="Option" />,
+    children: <Checkbox checked={false} label="Option" />,
   },
 };
 

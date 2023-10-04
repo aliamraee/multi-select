@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 
 export default {
   component: Select,
-  title: "Task",
+  title: "Select",
 };
 
 const optionsData = [
