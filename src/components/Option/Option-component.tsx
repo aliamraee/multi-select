@@ -1,16 +1,9 @@
 import _ from "lodash";
-import React from "react";
-import styled from "styled-components";
-
-const OptionStyle = styled.div<{ selected?: boolean; disabled: boolean }>`
-  padding: 10px;
-  color: black;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  opacity: ${({ disabled }) => (disabled ? "0.4" : "1")};
-`;
+import { MouseEvent } from "react";
+import { OptionStyle } from "./Option-style";
 
 interface PropsType {
-  onMouseDown?: (e: React.MouseEvent) => void;
+  onMouseDown?: (e: MouseEvent) => void;
   children: string | JSX.Element | JSX.Element[];
   disabled: boolean;
 }

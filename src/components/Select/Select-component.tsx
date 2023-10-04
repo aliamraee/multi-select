@@ -14,7 +14,7 @@ import Tag from "components/Tag";
 import Option from "components/Option";
 
 import {
-  ScrollableContainer,
+  Scrollbar,
   SuffixIcon,
   SelectedOptions,
   Input,
@@ -110,6 +110,7 @@ const CustomSelect: React.FC<PropsType> = ({
         setIsDropdownOpen((prev) => {
           if (prev) {
             inputRef?.current?.blur();
+            setInputValue("");
           }
           return !prev;
         });
@@ -202,11 +203,8 @@ const CustomSelect: React.FC<PropsType> = ({
           )}
         </SelectedOptions>
         {isDropdownOpen && (
-          <Dropdown
-            ref={dropdownRef}
-            className="rasha-dropdown"
-            isOpen={isDropdownOpen}>
-            <ScrollableContainer>
+          <Dropdown ref={dropdownRef} className="rasha-dropdown">
+            <Scrollbar>
               {!_.isEmpty(filteredOptions) ? (
                 filteredOptions.map((option) => {
                   const selected = multiple
@@ -243,7 +241,7 @@ const CustomSelect: React.FC<PropsType> = ({
                   <span>No data</span>
                 </EmptyState>
               )}
-            </ScrollableContainer>
+            </Scrollbar>
           </Dropdown>
         )}
       </div>

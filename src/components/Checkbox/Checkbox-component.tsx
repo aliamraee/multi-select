@@ -8,12 +8,12 @@ const CheckboxContainer = styled.label<{ disabled: boolean | undefined }>`
 `;
 
 const CheckboxInput = styled.input<{ disabled: boolean | undefined }>`
-  appearance: none;
-  width: 20px;
-  height: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  appearance: none;
   margin-right: 8px;
+  width: 20px;
+  height: 20px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 
   &:checked {

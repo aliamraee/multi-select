@@ -1,22 +1,14 @@
-
+import axios from "axios";
 import Select from "components/Select";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  getLocalStorageData,
-  setLocalStorageData,
-} from "./helpers/localStorage";
-import data from "./data/data.json";
+import { getStorageData, setStorageData } from "./helpers/localStorage";
 
 const RootContainer = styled.div`
-  max-width: 1000px;
+  max-width: 1200px;
   display: flex;
   flex-flow: column;
-  .sample-component {
-    border-radius: 20px;
-    box-shadow: 0px 0px 12px #c4c2c2;
-    margin: 12px;
-  }
+  margin: auto;
 `;
 const Box = styled.div`
   display: flex;
@@ -38,24 +30,80 @@ const Card = styled.div`
 
 const Title = styled.h3`
   font-size: 20px;
-  margin: 0px;
+  margin: 20px 0;
   color: #545854;
-  border-bottom: 1px solid white;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ff971d;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 18px;
+    margin: 18px 0;
+  }
 `;
 
 const PageTitle = styled.div`
-  background: #262928ad;
-  margin: 18px 12px;
-  border-radius: 12px;
+  margin: 128px 12px;
   text-align: center;
-  color: #e8e8e8;
-  padding: 10px;
+  color: #484848;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 680px;
+  align-self: center;
+  box-sizing: border-box;
+  & > h1 {
+    margin: 0 auto 40px;
+    border-bottom: 1px solid #ff971d;
+    width: max-content;
+    padding: 12px;
+    text-shadow: 0px 0px 6px #c8c8c8;
+  }
+  & > p {
+    color: #42a8ff;
+    font-family: "Mona Sans";
+    font-weight: 100;
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 28px;
+
+    & > p {
+      font-size: 16px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin: 80px 12px;
+    padding: 16px;
+
+    & > h1 {
+      font-size: 26px;
+    }
+  }
 `;
 
 const Description = styled.p`
   font-size: 16px;
-  color: #626060;
+  color: #797979;
+  font-family: vazir;
+  padding-bottom: 8px;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
+
+const MoreSample = styled.p`
+  font-weight: 100;
+  margin: 0 12px;
+  color: #4e4b4b;
+  font-size: 20px;
+  padding: 0 20px;
+
+  @media only screen and (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 interface DataType {
@@ -64,48 +112,45 @@ interface DataType {
 }
 
 const App = () => {
-  const [optionsData] = useState<DataType[]>(data);
+  const [optionsData, setOptionsData] = useState<DataType[]>([]);
 
-  // const fetchData = useCallback(async () => {
-  //   try {
-  //     const { data }: { data: DataType[] } =
-  //       await axios.get("src/data/data.json");
-  //     setOptionsData(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+  const fetchData = useCallback(async () => {
+    try {
+      const { data }: { data: DataType[] } =
+        await axios.get("src/data/data.json");
+      setOptionsData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <RootContainer>
       <PageTitle>
         <h1>Select Components</h1>
         <p>This is a general demo of the component</p>
-        <div style={{ margin: 20 }}>
+        <div>
           <Select
             selectClass="rasha-select-1"
             onChange={(val: string | string[]) =>
-              setLocalStorageData("selectData", val)
+              setStorageData("selectData", val)
             }
             onSearch={(val: string) => console.log(val)}
             options={optionsData}
-            defaultValue={getLocalStorageData("selectData", [])}
+            defaultValue={getStorageData("selectData", [])}
             showSearch
             multiple
-            placeholder="select an option"
+            placeholder="select or search an option"
           />
         </div>
       </PageTitle>
 
       <div className="sample-component">
-        <PageTitle>
-          <h3>there is more sample of this components</h3>
-        </PageTitle>
-
+        <MoreSample>there is more sample of this components</MoreSample>
         <Box>
           <Card>
             <Title>Single-Select</Title>
@@ -182,7 +227,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               defaultValue={"option_2"}
               showSearch
             />
@@ -199,7 +244,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               multiple={true}
               defaultValue={["option_1", "option_2"]}
               showSearch
@@ -218,7 +263,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               disabled
             />
           </Card>
@@ -234,7 +279,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               multiple={true}
               disabled
             />
@@ -252,7 +297,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               showSearch
               disableOption={(data: DataType) => data.value == "option_2"}
             />
@@ -269,7 +314,7 @@ const App = () => {
               onChange={(val: string | string[]) => console.log("value: ", val)}
               onSearch={(val: string) => console.log(val)}
               options={optionsData}
-              placeholder="select an option"
+              placeholder="select or search an option"
               multiple={true}
               showSearch
               disableOption={(data: DataType) =>
